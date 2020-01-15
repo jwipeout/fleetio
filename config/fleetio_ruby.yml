@@ -1,0 +1,8 @@
+development:
+   Authorization: 'Token 706e0ae9cc984ba8082999220377064eab160a8e'
+   Account-Token: '798819214b'
+
+production:
+   Authorization: <%= ENV['FLEETIO_RUBY_AUTHORIZATION'] %>
+   Account-Token: <%= ENV['FLEETIO_RUBY_ACCOUNT_TOKEN'] %>
+

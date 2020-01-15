@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe VehiclesController, type: :controller do
-	let(:vehicles) { create_list(:vehicle, 2) }
+  let(:vehicles) { create_list(:vehicle, 2) }
 
   describe 'GET #index' do
     before do
