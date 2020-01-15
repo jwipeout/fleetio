@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_15_162845) do
+ActiveRecord::Schema.define(version: 2020_01_15_203805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_162845) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "fleetio_vehicle_id", null: false
+    t.decimal "fuel_efficiency", precision: 6, scale: 2
   end
 
 end
