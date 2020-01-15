@@ -8,5 +8,12 @@ RSpec.describe Vehicle, type: :model do
       create(:vehicle)
       is_expected.to validate_uniqueness_of(:vin)
     end
+
+    it { is_expected.to validate_presence_of(:fleetio_vehicle_id) }
+
+    it 'validates uniqueness of fleetio_vehicle_id' do
+      create(:vehicle)
+      is_expected.to validate_uniqueness_of(:fleetio_vehicle_id)
+    end
   end
 end
