@@ -1,8 +1,8 @@
 module FleetioRuby
-  class Vehicle
+  class FuelEntry
     def self.retrieve(**query)
       Request.retrieve(
-        'https://secure.fleetio.com/api/v1/vehicles',
+        'https://secure.fleetio.com/api/v1/fuel_entries',
         **query
       )
     end
