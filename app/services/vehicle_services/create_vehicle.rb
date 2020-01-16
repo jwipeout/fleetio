@@ -4,17 +4,18 @@ module VehicleServices
       def perform(vin)
         vehicle_list = FleetioRuby::Vehicle.retrieve('q[vin_eq]' => vin)
 
-        return errors(vehicle_list) if vehicle_list.is_a?(Hash)
+        return result(errors: vehicle_list) if vehicle_list.is_a?(Hash)
 
-        create_vehicle(vehicle_list.first)
-
-        errors(false)
+        result(
+          vehicle: create_vehicle(vehicle_list.first),
+          errors: false
+        )
       end
 
       private
 
-      def errors(error)
-        OpenStruct.new(errors: error)
+      def result(results = {})
+        OpenStruct.new(**results)
       end
 
       def create_vehicle(vehicle)
