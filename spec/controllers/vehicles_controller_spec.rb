@@ -20,7 +20,7 @@ RSpec.describe VehiclesController, type: :controller do
 
     context 'when vehicle created' do
       before do
-        allow(FleetioRuby::Vehicle).to receive(:retrieve) { [vehicle] }
+        allow(FleetioRuby::Vehicle).to receive(:filter) { [vehicle] }
 
         post :create, format: :json, params: { vehicle: { vin: '123' } }
       end
@@ -32,7 +32,7 @@ RSpec.describe VehiclesController, type: :controller do
 
     context 'when vehicle not created' do
       before do
-        allow(FleetioRuby::Vehicle).to receive(:retrieve) do
+        allow(FleetioRuby::Vehicle).to receive(:filter) do
           { reason_phrase: 'not found', status: '404' }
         end
 

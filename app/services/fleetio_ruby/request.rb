@@ -1,6 +1,6 @@
 module FleetioRuby
   class Request
-    def self.retrieve(url, **query)
+    def self.filter(url, **query)
       response = Faraday.get(
         url,
         query,

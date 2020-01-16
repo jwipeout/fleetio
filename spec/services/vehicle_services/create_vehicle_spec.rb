@@ -7,7 +7,7 @@ RSpec.describe VehicleServices::CreateVehicle do
 
     context 'when vehicle found from api' do
       before do
-        allow(FleetioRuby::Vehicle).to receive(:retrieve) { [vehicle] }
+        allow(FleetioRuby::Vehicle).to receive(:filter) { [vehicle] }
       end
 
       it 'creates vehicle' do
@@ -23,7 +23,7 @@ RSpec.describe VehicleServices::CreateVehicle do
 
     context 'when vehicle not found from api' do
       before do
-        allow(FleetioRuby::Vehicle).to receive(:retrieve) do
+        allow(FleetioRuby::Vehicle).to receive(:filter) do
           { reason_phrase: 'not found', status: '404' }
         end
       end

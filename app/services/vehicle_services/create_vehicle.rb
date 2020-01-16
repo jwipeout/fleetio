@@ -2,7 +2,7 @@ module VehicleServices
   class CreateVehicle
     class << self
       def perform(vin)
-        vehicle_list = FleetioRuby::Vehicle.retrieve('q[vin_eq]' => vin)
+        vehicle_list = FleetioRuby::Vehicle.filter('q[vin_eq]' => vin)
 
         return result(errors: vehicle_list) if vehicle_list.is_a?(Hash)
 

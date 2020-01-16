@@ -1,7 +1,7 @@
 module FleetioRuby
   class FuelEntry
-    def self.retrieve(query = {})
-      Request.retrieve(
+    def self.filter(query = {})
+      Request.filter(
         'https://secure.fleetio.com/api/v1/fuel_entries',
         **query
       )
