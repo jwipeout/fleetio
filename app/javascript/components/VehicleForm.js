@@ -10,7 +10,9 @@ export default function VehicleForm() {
       <Card.Body>
 				<Form>
 					<Form.Group>
-						<Form.Label>VIN</Form.Label>
+            <h3>Add Your Vehicle</h3>
+
+						<Form.Label>Search by VIN</Form.Label>
 
 						<Form.Control type="text" placeholder="Enter VIN" />
 
