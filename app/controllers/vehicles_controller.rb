@@ -15,6 +15,21 @@ class VehiclesController < ApplicationController
     end
   end
 
+  def update_fuel_efficiency
+    update_vehicle_fuel_efficiency =
+      VehicleServices::UpdateVehicleFuelEfficiency.perform(vehicle_params[:fleetio_vehicle_id])
+
+    respond_to do |format|
+      if !update_vehicle_fuel_efficiency.errors
+        format.json { render(json: update_vehicle_fuel_efficiency.vehicle, status: :ok) }
+      else
+        format.json do
+          render(json: update_vehicle_fuel_efficiency.errors, status: :unprocessable_entity)
+        end
+      end
+    end
+  end
+
   private
 
   def vehicle_params
