@@ -20,7 +20,7 @@ export default function VehicleForm() {
     try {
       dispatch({ type: 'CREATE_VEHICLE_REQUEST' })
 
-      const response = await axios({
+      const createResponse = await axios({
         method: 'post',
         url: '/vehicles.json',
         data: {
@@ -30,9 +30,22 @@ export default function VehicleForm() {
         }
       })
 
-      dispatch({ type: 'CREATE_VEHICLE_SUCCESS', payload: response.data })
+      dispatch({ type: 'CREATE_VEHICLE_SUCCESS', payload: createResponse.data })
+
+      dispatch({ type: 'UPDATE_VEHICLE_FUEL_EFFICIENCY_REQUEST', paylod: createResponse.data.id })
+
+      const updateResponse = await axios({
+        method: 'post',
+        url: `/vehicles/${createResponse.data.id}/update_fuel_efficiency.json`
+      })
+
+      dispatch({ type: 'UPDATE_VEHICLE_FUEL_EFFICIENCY_SUCCESS', payload: updateResponse.data })
     } catch(error) {
-      dispatch({ type: 'CREATE_VEHICLE_FAILURE', payload: error.response.data })
+      if(error.response.config.url === '/vehicles.json') {
+        dispatch({ type: 'CREATE_VEHICLE_FAILURE', payload: error.response.data })
+      } else {
+        dispatch({ type: 'UPDATE_VEHICLE_FUEL_EFFICIENCY_FAILURE', payload: error.response.data })
+      }
     }
   }
 

@@ -24,7 +24,7 @@ module VehicleServices
         end
 
         result(
-          vehicle: create_vehicle(vehicle_list.first),
+          vehicle: new_vehicle,
           errors: false
         )
       end

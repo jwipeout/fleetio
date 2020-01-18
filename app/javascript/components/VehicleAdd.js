@@ -12,6 +12,7 @@ export default function VehicleAdd(props) {
   const initialState = {
     vehicles: props.vehicles,
     fetchingVehicle: false,
+    fetchingFuelEntries: false,
     flashMessage: {}
   }
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -31,7 +32,10 @@ export default function VehicleAdd(props) {
 
         <VehicleForm />
 
-        <VehicleList vehicles={state.vehicles} />
+        <VehicleList
+          vehicles={state.vehicles}
+          fetchingFuelEntries={state.fetchingFuelEntries}
+        />
       </Container>
     </Store.Provider>
   )

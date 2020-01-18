@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'react-bootstrap'
+import { Table, Spinner } from 'react-bootstrap'
 
 export default function VehicleList(props) {
   return(
@@ -30,7 +30,15 @@ export default function VehicleList(props) {
 
                 <td>{vehicle.model}</td>
 
-                <td>{vehicle.fuel_efficiency}</td>
+                <td>
+                  {
+                    props.fetchingFuelEntries ? (
+                      <Spinner animation="grow" variant="primary" />
+                    ) : (
+                      vehicle.fuel_efficiency
+                    )
+                  }
+                </td>
               </tr>
             )
         }

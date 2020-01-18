@@ -24,6 +24,32 @@ export default function reducer(state, action) {
           flashType: 'danger'
         }
       }
+    case 'UPDATE_VEHICLE_FUEL_EFFICIENCY_REQUEST':
+      return {
+        ...state,
+        fetchingFuelEntries: true
+      }
+    case 'UPDATE_VEHICLE_FUEL_EFFICIENCY_SUCCESS':
+      return {
+        ...state,
+        fetchingFuelEntries: false,
+        vehicles: state.vehicles.map(vehicle => {
+          if(vehicle.id === action.payload.id) {
+            return { ...vehicle, fuel_efficiency: action.payload.fuel_efficiency }
+          } else {
+            return vehicle
+          }
+        })
+      }
+    case 'UPDATE_VEHICLE_FUEL_EFFICIENCY_FAILURE':
+      return {
+        ...state,
+        fetchingFuelEntries: false,
+        flashMessage: {
+          message: action.payload,
+          flashType: 'danger'
+        }
+      }
     default:
       return state
   }
