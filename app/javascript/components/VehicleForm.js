@@ -52,27 +52,27 @@ export default function VehicleForm() {
   return(
     <Card className="vehicle-form">
       <Card.Body>
-				<Form onSubmit={handleSubmit}>
-					<Form.Group>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
             <h3>Add Your Vehicle</h3>
 
-						<Form.Label>Search by VIN</Form.Label>
+            <Form.Label>Search by VIN</Form.Label>
 
-						<Form.Control
+            <Form.Control
               type="text"
               placeholder="Enter VIN"
               value={vin}
               onChange={handleChange}
             />
 
-						<Form.Text className="text-muted">
-							We'll calculate fuel efficiency after adding vehicle
-						</Form.Text>
-					</Form.Group>
+            <Form.Text className="text-muted">
+              We'll calculate fuel efficiency after adding vehicle
+            </Form.Text>
+          </Form.Group>
 
           {
             state.fetchingVehicle ? (
-							<Button variant="primary" disabled>
+              <Button variant="primary" disabled>
                 <Spinner
                   as="span"
                   animation="grow"
@@ -88,7 +88,7 @@ export default function VehicleForm() {
               </Button>
             )
           }
-				</Form>
+        </Form>
       </Card.Body>
     </Card>
   )
