@@ -15,7 +15,7 @@ RSpec.describe VehicleServices::UpdateVehicleFuelEfficiency do
       ]
     end
     let(:vehicle) { create(:vehicle) }
-    let(:update_vehicle_fuel_efficiency) { described_class.perform(vehicle.id) }
+    let(:update_vehicle_fuel_efficiency) { described_class.perform(vehicle) }
 
     context 'when vehicle found from api' do
       before do
@@ -36,56 +36,56 @@ RSpec.describe VehicleServices::UpdateVehicleFuelEfficiency do
 
     context 'when error occurs from request' do
       before do
-        allow(FleetioRuby::Vehicle).to receive(:filter) do
+        allow(FleetioRuby::FuelEntry).to receive(:filter) do
           { reason_phrase: 'not found', status: '404' }
         end
       end
 
-      it 'does not create a vehicle' do
-        create_vehicle
+      it 'does not update vehicle fuel efficiency' do
+        update_vehicle_fuel_efficiency
 
-        expect(Vehicle.count).to eq(0)
+        expect(vehicle.reload.fuel_efficiency).to eq(nil)
       end
 
       it 'returns no errors' do
-        expect(create_vehicle.errors).to eq({ reason_phrase: 'not found', status: '404' }.to_s)
-      end
-    end
-
-    context 'when vehicle not found from api' do
-      before do
-        allow(FleetioRuby::Vehicle).to receive(:filter) { [] }
-      end
-
-      it 'does not create a vehicle' do
-        create_vehicle
-
-        expect(Vehicle.count).to eq(0)
-      end
-
-      it 'returns no matching vehicle error' do
-        expect(create_vehicle.errors).to eq(
-          I18n.t(:no_matching_vehicle, scope: [:errors, :fleetio])
+        expect(update_vehicle_fuel_efficiency.errors).to eq(
+          { reason_phrase: 'not found', status: '404' }.to_s
         )
       end
     end
 
-    context 'when vehicle creation is not valid' do
-      let(:existing_vehicle) { create(:vehicle, vin: vehicle['vin']) }
-
+    context 'when no fuel entries found' do
       before do
-        existing_vehicle
-        allow(FleetioRuby::Vehicle).to receive(:filter) { [vehicle] }
+        allow(FleetioRuby::FuelEntry).to receive(:filter) { [] }
       end
 
-      it 'does not create a vehicle' do
-        create_vehicle
+      it 'does not update vehicle fuel efficiency' do
+        update_vehicle_fuel_efficiency
 
-        expect(Vehicle.count).to eq(1)
+        expect(vehicle.reload.fuel_efficiency).to eq(nil)
+      end
+
+      it 'returns no fuel entries error' do
+        expect(update_vehicle_fuel_efficiency.errors).to eq(
+          I18n.t(:no_matching_fuel_entries, scope: [:errors, :fleetio])
+        )
+      end
+    end
+
+    context 'when vehicle update is not valid' do
+      before do
+        vehicle.vin = nil
+        allow(FleetioRuby::FuelEntry).to receive(:filter) { [vehicle] }
+      end
+
+      it 'does not update vehicle fuel efficiency' do
+        update_vehicle_fuel_efficiency
+
+        expect(vehicle.reload.fuel_efficiency).to eq(nil)
       end
 
       it 'returns no errors' do
-        expect(create_vehicle.errors).to eq('Vin has already been taken')
+        expect(update_vehicle_fuel_efficiency.errors).to eq("Vin can't be blank")
       end
     end
   end

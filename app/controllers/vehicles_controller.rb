@@ -16,8 +16,9 @@ class VehiclesController < ApplicationController
   end
 
   def update_fuel_efficiency
+    vehicle = Vehicle.find(params[:id])
     update_vehicle_fuel_efficiency =
-      VehicleServices::UpdateVehicleFuelEfficiency.perform(vehicle_params[:fleetio_vehicle_id])
+      VehicleServices::UpdateVehicleFuelEfficiency.perform(vehicle)
 
     respond_to do |format|
       if !update_vehicle_fuel_efficiency.errors
@@ -33,6 +34,6 @@ class VehiclesController < ApplicationController
   private
 
   def vehicle_params
-    params.require(:vehicle).permit(:vin)
+    params.require(:vehicle).permit(:id, :vin)
   end
 end

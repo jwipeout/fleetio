@@ -33,3 +33,4 @@ en:
   errors:
     fleetio:
       no_matching_vehicle: 'No matching vehicle'
+      no_matching_fuel_entries: 'No fuel entries for this vehicle'
