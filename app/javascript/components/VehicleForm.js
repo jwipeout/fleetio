@@ -1,20 +1,56 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useReducer } from 'react'
 import Store from '../contexts/context'
 import { Card, Form, Button } from 'react-bootstrap'
+import axios from 'axios'
 
 export default function VehicleForm() {
   const { state, dispatch } = useContext(Store)
+  const [vin, setVin] = useState('')
+
+  function handleChange(e) {
+    setVin(e.target.value)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    fetchVehicle(vin)
+  }
+
+  async function fetchVehicle(vinValue) {
+    try {
+      dispatch(type: 'CREATE_VEHICLE_REQUEST')
+
+      const vehicle = await axios({
+        method: 'post',
+        url: '/vehicles.json',
+        data: {
+          vehicle: {
+            vin: vinValue
+          }
+        }
+      })
+
+      dispatch(type: 'CREATE_VEHICLE_SUCCESS', payload: vehicle)
+    } catch(error) {
+      dispatch(type: 'CREATE_VEHICLE_FAILURE', payload: error)
+    }
+  }
 
   return(
     <Card className="vehicle-form">
       <Card.Body>
-				<Form>
+				<Form onSubmit={handleSubmit}>
 					<Form.Group>
             <h3>Add Your Vehicle</h3>
 
 						<Form.Label>Search by VIN</Form.Label>
 
-						<Form.Control type="text" placeholder="Enter VIN" />
+						<Form.Control
+              type="text"
+              placeholder="Enter VIN"
+              value={vin}
+              onChange={handleChange}
+            />
 
 						<Form.Text className="text-muted">
 							We'll calculate fuel efficiency after adding vehicle
