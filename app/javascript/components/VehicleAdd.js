@@ -8,7 +8,12 @@ import VehicleForm from './VehicleForm'
 import axios from 'axios'
 
 export default function VehicleAdd(props) {
-  const initialState = { vehicles: props.vehicles }
+  const initialState = {
+    vehicles: props.vehicles,
+    fetchVehicle: false,
+    errorMessage: '',
+    successMessage: ''
+  }
   const [state, dispatch] = useReducer(reducer, initialState)
   const csrfToken = document.querySelector('[name=csrf-token]').content
 

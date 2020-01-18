@@ -21,7 +21,7 @@ RSpec.describe VehicleServices::CreateVehicle do
       end
     end
 
-    context 'when vehicle not found from api' do
+    context 'when error occurs from request' do
       before do
         allow(FleetioRuby::Vehicle).to receive(:filter) do
           { reason_phrase: 'not found', status: '404' }
@@ -35,7 +35,25 @@ RSpec.describe VehicleServices::CreateVehicle do
       end
 
       it 'returns no errors' do
-        expect(create_vehicle.errors).to eq(reason_phrase: 'not found', status: '404')
+        expect(create_vehicle.errors).to eq({ reason_phrase: 'not found', status: '404' }.to_s)
+      end
+    end
+
+    context 'when vehicle not found from api' do
+      before do
+        allow(FleetioRuby::Vehicle).to receive(:filter) { [] }
+      end
+
+      it 'does not create a vehicle' do
+        create_vehicle
+
+        expect(Vehicle.count).to eq(0)
+      end
+
+      it 'returns no errors' do
+        expect(create_vehicle.errors).to eq(
+          I18n.t(:no_matching_vehicle, scope: [:errors, :fleetio])
+        )
       end
     end
   end

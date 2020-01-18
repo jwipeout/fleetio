@@ -33,3 +33,6 @@ Style/SymbolArray:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
