@@ -50,10 +50,29 @@ RSpec.describe VehicleServices::CreateVehicle do
         expect(Vehicle.count).to eq(0)
       end
 
-      it 'returns no errors' do
+      it 'returns no matching vehicle error' do
         expect(create_vehicle.errors).to eq(
           I18n.t(:no_matching_vehicle, scope: [:errors, :fleetio])
         )
+      end
+    end
+
+    context 'when vehicle creation is not valid' do
+      let(:existing_vehicle) { create(:vehicle, vin: vehicle['vin']) }
+
+      before do
+        existing_vehicle
+        allow(FleetioRuby::Vehicle).to receive(:filter) { [vehicle] }
+      end
+
+      it 'does not create a vehicle' do
+        create_vehicle
+
+        expect(Vehicle.count).to eq(1)
+      end
+
+      it 'returns no errors' do
+        expect(create_vehicle.errors).to eq('Vin has already been taken')
       end
     end
   end

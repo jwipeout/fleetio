@@ -15,6 +15,12 @@ module VehicleServices
           )
         end
 
+        new_vehicle = create_vehicle(vehicle_list.first)
+
+        unless new_vehicle.valid?
+          return result(errors: new_vehicle.errors.full_messages.join('. '))
+        end
+
         result(
           vehicle: create_vehicle(vehicle_list.first),
           errors: false

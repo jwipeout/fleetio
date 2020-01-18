@@ -36,3 +36,9 @@ Style/FrozenStringLiteralComment:
 
 Metrics/MethodLength:
   Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
