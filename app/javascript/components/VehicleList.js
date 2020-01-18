@@ -18,17 +18,21 @@ export default function VehicleList(props) {
 
       <tbody>
         {
-          props.vehicles.map(vehicle =>
-            <tr key={vehicle.id}>
-              <td>{vehicle.vin}</td>
+          props.vehicles
+            .sort((a, b) =>
+              b.id - a.id
+            )
+            .map(vehicle =>
+              <tr key={vehicle.id}>
+                <td>{vehicle.vin}</td>
 
-              <td>{vehicle.make}</td>
+                <td>{vehicle.make}</td>
 
-              <td>{vehicle.model}</td>
+                <td>{vehicle.model}</td>
 
-              <td>{vehicle.fuel_efficiency}</td>
-            </tr>
-          )
+                <td>{vehicle.fuel_efficiency}</td>
+              </tr>
+            )
         }
       </tbody>
     </Table>

@@ -3,18 +3,19 @@ export default function reducer(state, action) {
     case 'CREATE_VEHICLE_REQUEST':
       return {
         ...state,
-        fetchVehicle: true
+        fetchingVehicle: true
       }
     case 'CREATE_VEHICLE_SUCCESS':
       return {
         ...state,
-        fetchVehicle: false,
-        vehicles: [...state.vehicles, action.payload]
+        fetchingVehicle: false,
+        vehicles: [...state.vehicles, action.payload],
+        successMessage: action.payload
       }
     case 'CREATE_VEHICLE_FAILURE':
       return {
         ...state,
-        fetchVehicle: false,
+        fetchingVehicle: false,
         errorMessage: action.payload
       }
     default:

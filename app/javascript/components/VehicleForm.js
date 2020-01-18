@@ -1,6 +1,6 @@
 import React, { useContext, useState, useReducer } from 'react'
 import Store from '../contexts/context'
-import { Card, Form, Button } from 'react-bootstrap'
+import { Card, Form, Button, Spinner } from 'react-bootstrap'
 import axios from 'axios'
 
 export default function VehicleForm() {
@@ -57,9 +57,24 @@ export default function VehicleForm() {
 						</Form.Text>
 					</Form.Group>
 
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+          {
+            state.fetchingVehicle ? (
+							<Button variant="primary" disabled>
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                Fetching...
+              </Button>
+            ) : (
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            )
+          }
 				</Form>
       </Card.Body>
     </Card>

@@ -10,7 +10,7 @@ import axios from 'axios'
 export default function VehicleAdd(props) {
   const initialState = {
     vehicles: props.vehicles,
-    fetchVehicle: false,
+    fetchingVehicle: false,
     errorMessage: '',
     successMessage: ''
   }
