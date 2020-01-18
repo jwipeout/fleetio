@@ -10,13 +10,19 @@ export default function reducer(state, action) {
         ...state,
         fetchingVehicle: false,
         vehicles: [...state.vehicles, action.payload],
-        successMessage: action.payload
+        flashMessage: {
+          message: 'Successfully created vehicle',
+          flashType: 'success'
+        }
       }
     case 'CREATE_VEHICLE_FAILURE':
       return {
         ...state,
         fetchingVehicle: false,
-        errorMessage: action.payload
+        flashMessage: {
+          message: action.payload,
+          flashType: 'danger'
+        }
       }
     default:
       return state

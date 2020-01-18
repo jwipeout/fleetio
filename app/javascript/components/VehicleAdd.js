@@ -5,14 +5,14 @@ import { ListGroup, Container } from 'react-bootstrap'
 import NavbarMain from './NavbarMain'
 import VehicleList from './VehicleList'
 import VehicleForm from './VehicleForm'
+import FlashMessage from './FlashMessage'
 import axios from 'axios'
 
 export default function VehicleAdd(props) {
   const initialState = {
     vehicles: props.vehicles,
     fetchingVehicle: false,
-    errorMessage: '',
-    successMessage: ''
+    flashMessage: {}
   }
   const [state, dispatch] = useReducer(reducer, initialState)
   const csrfToken = document.querySelector('[name=csrf-token]').content
@@ -24,6 +24,11 @@ export default function VehicleAdd(props) {
       <NavbarMain />
 
       <Container>
+        <FlashMessage
+          message={state.flashMessage.message}
+          flashType={state.flashMessage.flashType}
+        />
+
         <VehicleForm />
 
         <VehicleList vehicles={state.vehicles} />
