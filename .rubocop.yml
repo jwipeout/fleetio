@@ -42,3 +42,9 @@ Metrics/AbcSize:
 
 Style/IfUnlessModifier:
   Enabled: false
+
+Style/EachWithObject:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false

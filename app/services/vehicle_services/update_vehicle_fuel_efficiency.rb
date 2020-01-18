@@ -35,8 +35,10 @@ module VehicleServices
 
       def calculate_fuel_efficiency(fuel_entries_list)
         total = fuel_entries_list.inject(Hash.new(0)) do |hash, fe|
-          hash['usage_in_mi'] += fe['usage_in_mi'].to_d
-          hash['us_gallons'] += fe['us_gallons'].to_d
+          ['usage_in_mi', 'us_gallons'].each do |attribute|
+            hash[attribute] += fe[attribute].to_d
+          end
+
           hash
         end
 
@@ -49,4 +51,3 @@ module VehicleServices
     end
   end
 end
-
