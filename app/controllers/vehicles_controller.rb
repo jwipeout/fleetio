@@ -7,7 +7,7 @@ class VehiclesController < ApplicationController
     create_vehicle = VehicleServices::CreateVehicle.perform(vehicle_params[:vin])
 
     respond_to do |format|
-      if !create_vehicle.errors
+      if create_vehicle.errors.blank?
         format.json { render(json: create_vehicle.vehicle, status: :created) }
       else
         format.json { render(json: create_vehicle.errors, status: :unprocessable_entity) }
@@ -21,7 +21,7 @@ class VehiclesController < ApplicationController
       VehicleServices::UpdateVehicleFuelEfficiency.perform(vehicle)
 
     respond_to do |format|
-      if !update_vehicle_fuel_efficiency.errors
+      if update_vehicle_fuel_efficiency.errors.blank?
         format.json { render(json: update_vehicle_fuel_efficiency.vehicle, status: :ok) }
       else
         format.json do
@@ -34,6 +34,6 @@ class VehiclesController < ApplicationController
   private
 
   def vehicle_params
-    params.require(:vehicle).permit(:id, :vin)
+    params.require(:vehicle).permit(:vin)
   end
 end
