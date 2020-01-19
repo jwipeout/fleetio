@@ -7,18 +7,13 @@ import VehicleList from './VehicleList'
 import VehicleForm from './VehicleForm'
 import FlashMessage from './FlashMessage'
 import axios from 'axios'
+import setupCsrfToken from '../helpers/setupCsrfToken'
 
 export default function VehicleAdd(props) {
-  const initialState = {
-    vehicles: props.vehicles,
-    fetchingVehicle: false,
-    fetchingFuelEntries: false,
-    flashMessage: {}
-  }
-  const [state, dispatch] = useReducer(reducer, initialState)
-  const csrfToken = document.querySelector('[name=csrf-token]').content
+  setupCsrfToken()
+  const globalStore = useContext(Store)
+  const [state, dispatch] = useReducer(reducer, { ...globalStore, vehicles: props.vehicles })
 
-  axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
 
   return(
     <Store.Provider value={{ state, dispatch }}>

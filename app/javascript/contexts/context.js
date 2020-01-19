@@ -1,5 +1,8 @@
 import React from 'react'
 
 export default React.createContext({
-  vehicles: []
+  vehicles: [],
+  fetchingVehicle: false,
+  fetchingFuelEntries: false,
+  flashMessage: {}
 })
