@@ -3,47 +3,51 @@ import { Table, Spinner } from 'react-bootstrap'
 
 export default function VehicleList(props) {
   return(
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Vin</th>
+    <>
+      <h3>List of Vehicles</h3>
 
-          <th>Make</th>
+      <Table bordered hover>
+        <thead>
+          <tr>
+            <th>Vin</th>
 
-          <th>Model</th>
+            <th>Make</th>
 
-          <th>Fuel Efficiency</th>
-        </tr>
-      </thead>
+            <th>Model</th>
 
-      <tbody>
-        {
-          props.vehicles
-            .sort((a, b) =>
-              b.id - a.id
-            )
-            .map(vehicle =>
-              <tr key={vehicle.id}>
-                <td>{vehicle.vin}</td>
+            <th>Fuel Efficiency</th>
+          </tr>
+        </thead>
 
-                <td>{vehicle.make}</td>
+        <tbody>
+          {
+            props.vehicles
+              .sort((a, b) =>
+                b.id - a.id
+              )
+              .map(vehicle =>
+                <tr key={vehicle.id}>
+                  <td>{vehicle.vin}</td>
 
-                <td>{vehicle.model}</td>
+                  <td>{vehicle.make}</td>
 
-                <td>
-                  {
-                    props.fetchingFuelEntries.currentStatus
-                      && props.fetchingFuelEntries.vehicleId === vehicle.id ? (
-                      <Spinner animation="grow" variant="primary" />
-                    ) : (
-                      vehicle.fuel_efficiency
-                    )
-                  }
-                </td>
-              </tr>
-            )
-        }
-      </tbody>
-    </Table>
+                  <td>{vehicle.model}</td>
+
+                  <td>
+                    {
+                      props.fetchingFuelEntries.currentStatus
+                        && props.fetchingFuelEntries.vehicleId === vehicle.id ? (
+                        <Spinner animation="grow" variant="primary" />
+                      ) : (
+                        vehicle.fuel_efficiency
+                      )
+                    }
+                  </td>
+                </tr>
+              )
+          }
+        </tbody>
+      </Table>
+    </>
   )
 }

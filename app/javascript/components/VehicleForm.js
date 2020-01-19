@@ -50,46 +50,48 @@ export default function VehicleForm() {
   }
 
   return(
-    <Card className="vehicle-form">
-      <Card.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <h3>Add Your Vehicle</h3>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group>
+        <h2>Add Your Vehicle</h2>
 
-            <Form.Label>Search by VIN</Form.Label>
+        <p>
+          Welcome! Add your vehicle by searhing by vin.
+          After we have found it we will update the fuel
+          efficiency column.
+        </p>
 
-            <Form.Control
-              type="text"
-              placeholder="Enter VIN"
-              value={vin}
-              onChange={handleChange}
+        <Form.Label>Search by VIN</Form.Label>
+
+        <Form.Control
+          type="text"
+          placeholder="Enter VIN"
+          value={vin}
+          onChange={handleChange}
+        />
+
+        <Form.Text className="text-muted">
+          Vehicle will automatically be added to list below.
+        </Form.Text>
+      </Form.Group>
+
+      {
+        state.fetchingVehicle ? (
+          <Button variant="success" disabled>
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
             />
-
-            <Form.Text className="text-muted">
-              We'll calculate fuel efficiency after adding vehicle
-            </Form.Text>
-          </Form.Group>
-
-          {
-            state.fetchingVehicle ? (
-              <Button variant="primary" disabled>
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                Fetching...
-              </Button>
-            ) : (
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            )
-          }
-        </Form>
-      </Card.Body>
-    </Card>
+            Fetching...
+          </Button>
+        ) : (
+          <Button variant="success" type="submit">
+            Submit
+          </Button>
+        )
+      }
+    </Form>
   )
 }

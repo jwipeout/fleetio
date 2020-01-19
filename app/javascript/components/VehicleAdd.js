@@ -1,7 +1,7 @@
 import React, { useContext, useReducer } from 'react'
 import reducer from '../reducers/reducer'
 import Store from '../contexts/context'
-import { ListGroup, Container } from 'react-bootstrap'
+import { ListGroup, Container, Col, Row, Image } from 'react-bootstrap'
 import NavbarMain from './NavbarMain'
 import VehicleList from './VehicleList'
 import VehicleForm from './VehicleForm'
@@ -19,11 +19,23 @@ export default function VehicleAdd(props) {
     <Store.Provider value={{ state, dispatch }}>
       <NavbarMain />
 
+      <div className="banner">
+        <Container>
+          <FlashMessage />
+
+          <Row>
+            <Col md={6}>
+              <VehicleForm />
+            </Col>
+
+            <Col md={6}>
+              <Image src="https://fleetiojosh.s3-us-west-1.amazonaws.com/asset-management.png" fluid />
+            </Col>
+          </Row>
+        </Container>
+      </div>
+
       <Container>
-        <FlashMessage />
-
-        <VehicleForm />
-
         <VehicleList
           vehicles={state.vehicles}
           fetchingFuelEntries={state.fetchingFuelEntries}
