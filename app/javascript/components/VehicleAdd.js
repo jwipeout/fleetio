@@ -5,6 +5,7 @@ import { ListGroup, Container, Col, Row, Image } from 'react-bootstrap'
 import NavbarMain from './NavbarMain'
 import VehicleList from './VehicleList'
 import VehicleForm from './VehicleForm'
+import Footer from './Footer'
 import FlashMessage from './FlashMessage'
 import axios from 'axios'
 import setupCsrfToken from '../helpers/setupCsrfToken'
@@ -40,6 +41,8 @@ export default function VehicleAdd(props) {
           vehicles={state.vehicles}
           fetchingFuelEntries={state.fetchingFuelEntries}
         />
+
+        <Footer />
       </Container>
     </Store.Provider>
   )
