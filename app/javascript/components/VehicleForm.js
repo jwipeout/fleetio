@@ -32,7 +32,7 @@ export default function VehicleForm() {
 
       dispatch({ type: 'CREATE_VEHICLE_SUCCESS', payload: createResponse.data })
 
-      dispatch({ type: 'UPDATE_VEHICLE_FUEL_EFFICIENCY_REQUEST', paylod: createResponse.data.id })
+      dispatch({ type: 'UPDATE_VEHICLE_FUEL_EFFICIENCY_REQUEST', payload: createResponse.data.id })
 
       const updateResponse = await axios({
         method: 'post',

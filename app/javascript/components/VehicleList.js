@@ -32,7 +32,8 @@ export default function VehicleList(props) {
 
                 <td>
                   {
-                    props.fetchingFuelEntries ? (
+                    props.fetchingFuelEntries.currentStatus
+                      && props.fetchingFuelEntries.vehicleId === vehicle.id ? (
                       <Spinner animation="grow" variant="primary" />
                     ) : (
                       vehicle.fuel_efficiency
