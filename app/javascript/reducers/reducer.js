@@ -12,7 +12,8 @@ export default function reducer(state, action) {
         vehicles: [...state.vehicles, action.payload],
         flashMessage: {
           message: 'Successfully created vehicle',
-          flashType: 'success'
+          flashType: 'success',
+          show: true
         }
       }
     case 'CREATE_VEHICLE_FAILURE':
@@ -21,7 +22,8 @@ export default function reducer(state, action) {
         fetchingVehicle: false,
         flashMessage: {
           message: action.payload,
-          flashType: 'danger'
+          flashType: 'danger',
+          show: true
         }
       }
     case 'UPDATE_VEHICLE_FUEL_EFFICIENCY_REQUEST':
@@ -47,7 +49,16 @@ export default function reducer(state, action) {
         fetchingFuelEntries: false,
         flashMessage: {
           message: action.payload,
-          flashType: 'danger'
+          flashType: 'danger',
+          show: true
+        }
+      }
+    case 'CLOSE_FLASH_MESSAGE':
+      return {
+        ...state,
+        flashMessage: {
+          ...state.flashMessage,
+          show: false
         }
       }
     default:

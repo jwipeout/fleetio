@@ -1,13 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import Store from '../contexts/context'
 import { Alert } from 'react-bootstrap'
 
-export default function FlashMessage(props) {
-  const [show, setShow] = useState(true);
+export default function FlashMessage() {
+  const {state, dispatch} = useContext(Store)
 
-  if (show && props.message) {
+  function handleClose() {
+    dispatch({ type: 'CLOSE_FLASH_MESSAGE' })
+  }
+
+  if (state.flashMessage.show) {
     return (
-      <Alert variant={props.flashType} onClose={() => setShow(false)} dismissible>
-        { props.message }
+      <Alert
+        variant={state.flashMessage.flashType}
+        onClose={handleClose}
+        dismissible
+      >
+        { state.flashMessage.message }
       </Alert>
     );
   }

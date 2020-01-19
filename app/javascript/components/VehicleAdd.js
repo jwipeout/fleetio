@@ -25,10 +25,7 @@ export default function VehicleAdd(props) {
       <NavbarMain />
 
       <Container>
-        <FlashMessage
-          message={state.flashMessage.message}
-          flashType={state.flashMessage.flashType}
-        />
+        <FlashMessage />
 
         <VehicleForm />
 
