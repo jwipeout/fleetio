@@ -3,7 +3,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap'
 
 export default function NavbarMain() {
   return(
-		<Navbar bg="dark" expand="md" variant="dark">
+    <Navbar bg="dark" expand="md" variant="dark">
       <Container>
         <Navbar.Brand href="#home">Fleetio</Navbar.Brand>
 
