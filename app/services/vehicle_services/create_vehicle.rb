@@ -4,6 +4,15 @@ module VehicleServices
 
     class << self
       def perform(vin)
+        if vin.blank?
+          return result(
+            errors: I18n.t(
+              :no_vin,
+              scope: [:errors, :fleetio]
+            )
+          )
+        end
+
         vehicle_list = FleetioRuby::Vehicle.filter('q[vin_eq]' => vin)
 
         return result(errors: vehicle_list.to_s) if request_error?(vehicle_list)

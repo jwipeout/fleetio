@@ -63,6 +63,7 @@ export default function VehicleForm() {
         <Form.Label>Search by VIN</Form.Label>
 
         <Form.Control
+          required
           type="text"
           placeholder="Enter VIN"
           value={vin}

@@ -21,6 +21,22 @@ RSpec.describe VehicleServices::CreateVehicle do
       end
     end
 
+    context 'when vin is blank' do
+      let(:create_vehicle) { described_class.perform(nil) }
+
+      it 'does not create a vehicle' do
+        create_vehicle
+
+        expect(Vehicle.count).to eq(0)
+      end
+
+      it 'returns no errors' do
+        expect(create_vehicle.errors).to eq(
+          I18n.t(:no_vin, scope: [:errors, :fleetio])
+        )
+      end
+    end
+
     context 'when error occurs from request' do
       before do
         allow(FleetioRuby::Vehicle).to receive(:filter) do
