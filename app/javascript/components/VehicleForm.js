@@ -1,6 +1,7 @@
 import React, { useContext, useState, useReducer } from 'react'
 import Store from '../contexts/context'
 import { Card, Form, Button, Spinner } from 'react-bootstrap'
+import { createVehicle, updateVehicleFuelEfficiency } from '../actions/vehiclesAction'
 import axios from 'axios'
 
 export default function VehicleForm() {
@@ -17,36 +18,8 @@ export default function VehicleForm() {
   }
 
   async function fetchVehicle(vinValue) {
-    try {
-      dispatch({ type: 'CREATE_VEHICLE_REQUEST' })
-
-      const createResponse = await axios({
-        method: 'post',
-        url: '/vehicles.json',
-        data: {
-          vehicle: {
-            vin: vinValue
-          }
-        }
-      })
-
-      dispatch({ type: 'CREATE_VEHICLE_SUCCESS', payload: createResponse.data })
-
-      dispatch({ type: 'UPDATE_VEHICLE_FUEL_EFFICIENCY_REQUEST', payload: createResponse.data.id })
-
-      const updateResponse = await axios({
-        method: 'post',
-        url: `/vehicles/${createResponse.data.id}/update_fuel_efficiency.json`
-      })
-
-      dispatch({ type: 'UPDATE_VEHICLE_FUEL_EFFICIENCY_SUCCESS', payload: updateResponse.data })
-    } catch(error) {
-      if(error.response.config.url === '/vehicles.json') {
-        dispatch({ type: 'CREATE_VEHICLE_FAILURE', payload: error.response.data })
-      } else {
-        dispatch({ type: 'UPDATE_VEHICLE_FUEL_EFFICIENCY_FAILURE', payload: error.response.data })
-      }
-    }
+    const createResponse = await createVehicle(dispatch, vinValue)
+    updateVehicleFuelEfficiency(dispatch, createResponse.data.id)
   }
 
   return(
